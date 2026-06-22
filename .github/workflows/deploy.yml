@@ -48,8 +48,17 @@ jobs:
       - name: Deploy to production
         id: deploy
         run: |
-          set -euo pipefail
-          netlify deploy --prod --dir . 2>&1 | tee deploy.out
+          set -uo pipefail
+          attempt() { netlify deploy --prod --dir . 2>&1 | tee deploy.out; }
+          n=1
+          while [ "$n" -le 4 ]; do
+            echo "=== deploy attempt $n ==="
+            if attempt && grep -q 'Deploy is live' deploy.out; then
+              echo "deploy succeeded on attempt $n"; break
+            fi
+            if [ "$n" -eq 4 ]; then echo "deploy failed after $n attempts"; exit 1; fi
+            n=$((n+1)); echo "transient deploy error; retrying in 15s..."; sleep 15
+          done
           url=$(grep -Eo 'https://[a-zA-Z0-9._-]+\.netlify\.app' deploy.out | tail -1)
           echo "Deployed URL: ${url:-$PRIMARY_URL}"
           echo "url=${url:-$PRIMARY_URL}" >> "$GITHUB_OUTPUT"
