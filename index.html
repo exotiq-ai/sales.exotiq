@@ -1,0 +1,57 @@
+<!doctype html>
+<!--
+  PLACEHOLDER — replace this file with the finished, branded index.html (the hub).
+  Kept here only so the gate, headers, robots and cookie flow can be deployed and
+  verified end-to-end before the real content lands. Do not ship as-is.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>exotiq · Sales Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root { --midnight:#0A1929; --gulf:#6EC1E4; --ink:#E8EEF4; --muted:#8aa0b2; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; background:radial-gradient(1200px 600px at 50% -10%, #102a40 0%, var(--midnight) 60%);
+      color:var(--ink); font-family:"Montserrat",system-ui,sans-serif; padding:48px 24px; }
+    .wrap { max-width:860px; margin:0 auto; }
+    .wordmark { font-family:"Manrope",sans-serif; font-weight:800; font-size:34px; letter-spacing:-.02em; margin:0; }
+    .wordmark .dot { color:var(--gulf); }
+    .sub { color:var(--muted); letter-spacing:.14em; text-transform:uppercase; font-size:13px; margin:6px 0 40px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; }
+    a.card { display:block; text-decoration:none; color:var(--ink); background:rgba(255,255,255,.03);
+      border:1px solid rgba(110,193,228,.18); border-top:3px solid var(--gulf); border-radius:14px;
+      padding:28px 24px; transition:transform .12s, border-color .12s; }
+    a.card:hover { transform:translateY(-3px); border-color:var(--gulf); }
+    a.card h2 { font-family:"Manrope",sans-serif; margin:0 0 8px; font-size:19px; }
+    a.card p { margin:0; color:var(--muted); font-size:13px; line-height:1.5; }
+    .logout { margin-top:40px; font-size:12px; }
+    .logout a { color:var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1 class="wordmark">exotiq<span class="dot">.</span></h1>
+    <p class="sub">Sales Hub</p>
+    <div class="grid">
+      <a class="card" href="./playbook.html">
+        <h2>Sales Playbook</h2>
+        <p>Positioning, objections, and the full sales narrative.</p>
+      </a>
+      <a class="card" href="./cockpit.html">
+        <h2>Call Cockpit</h2>
+        <p>Nine job aids to run live calls with confidence.</p>
+      </a>
+      <a class="card" data-dashboard-link href="REPLACE_WITH_DASHBOARD_URL" target="_blank" rel="noopener">
+        <h2>Live Dashboard ↗</h2>
+        <p>Open the live sales dashboard.</p>
+      </a>
+    </div>
+    <p class="logout"><a href="/logout">Sign out</a></p>
+  </div>
+</body>
+</html>

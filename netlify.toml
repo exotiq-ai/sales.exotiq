@@ -1,0 +1,23 @@
+# Exotiq Sales Hub — static site, gated by a shared-password edge function.
+# Publish directory is the repo root; there is no build step.
+
+[build]
+  publish = "."
+
+# Run the password gate on every route except /robots.txt, which crawlers must
+# be able to read. (In-code config in netlify/edge-functions/gate.ts matches this.)
+[[edge_functions]]
+  path = "/*"
+  excludedPath = "/robots.txt"
+  function = "gate"
+
+# Defense-in-depth headers. Note: these apply to non-edge paths (e.g. /robots.txt);
+# the edge function sets the same headers on the responses it generates, because
+# netlify.toml custom headers are not applied to edge-function paths.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
