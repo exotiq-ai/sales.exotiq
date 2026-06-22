@@ -64,7 +64,8 @@ One-time setup in the Netlify dashboard:
    production branch `claude/determined-ritchie-k42fvk` (or `main` if you merge there).
    Build command: *(none)*. Publish directory: `.` (already in `netlify.toml`).
 2. **Set the password.** Site configuration → Environment variables → add
-   `SITE_PASSWORD` = `ExotiqAI2026!` (mark as secret). **Not stored in git.**
+   `SITE_PASSWORD` = *(your shared password)* (mark as secret). **Keep it out of git** —
+   never commit the literal value.
 3. Trigger a deploy (it runs automatically on the next push, or use "Trigger deploy").
 
 > A direct `netlify deploy --prod` works too if you run it from a machine that can
