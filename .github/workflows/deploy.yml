@@ -45,11 +45,19 @@ jobs:
       - name: Set SITE_PASSWORD (server-side env var, never in git)
         run: netlify env:set SITE_PASSWORD "$SITE_PW"
 
+      - name: Stage clean publish directory
+        run: |
+          set -euo pipefail
+          rm -rf _site && mkdir -p _site
+          cp index.html playbook.html cockpit.html robots.txt _site/
+          echo "Publishing only:"; ls -1 _site
+          # Edge functions still bundle from netlify/edge-functions via netlify.toml.
+
       - name: Deploy to production
         id: deploy
         run: |
           set -uo pipefail
-          attempt() { netlify deploy --prod --dir . 2>&1 | tee deploy.out; }
+          attempt() { netlify deploy --prod --dir _site 2>&1 | tee deploy.out; }
           n=1
           while [ "$n" -le 4 ]; do
             echo "=== deploy attempt $n ==="
