@@ -1,0 +1,90 @@
+name: Deploy to Netlify
+
+# Manual-trigger only. Credentials are passed as masked inputs at dispatch time,
+# so nothing sensitive lives in the repo. The runner can reach Netlify (the Claude
+# Code web sandbox cannot), so this is how the site is deployed and verified live.
+on:
+  workflow_dispatch:
+    inputs:
+      netlify_auth_token:
+        description: "Netlify personal access token"
+        required: true
+      site_id:
+        description: "Netlify site ID"
+        required: true
+      site_password:
+        description: "Shared SITE_PASSWORD value (kept out of git)"
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      NETLIFY_AUTH_TOKEN: ${{ inputs.netlify_auth_token }}
+      SITE_ID: ${{ inputs.site_id }}
+      SITE_PW: ${{ inputs.site_password }}
+      PRIMARY_URL: https://nimble-zuccutto-5fb8e9.netlify.app
+    steps:
+      - name: Mask credentials in logs
+        run: |
+          echo "::add-mask::$NETLIFY_AUTH_TOKEN"
+          echo "::add-mask::$SITE_PW"
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install Netlify CLI
+        run: npm install -g netlify-cli@26
+
+      - name: Link site
+        run: netlify link --id "$SITE_ID"
+
+      - name: Set SITE_PASSWORD (server-side env var, never in git)
+        run: netlify env:set SITE_PASSWORD "$SITE_PW"
+
+      - name: Deploy to production
+        id: deploy
+        run: |
+          set -euo pipefail
+          netlify deploy --prod --dir . 2>&1 | tee deploy.out
+          url=$(grep -Eo 'https://[a-zA-Z0-9._-]+\.netlify\.app' deploy.out | tail -1)
+          echo "Deployed URL: ${url:-$PRIMARY_URL}"
+          echo "url=${url:-$PRIMARY_URL}" >> "$GITHUB_OUTPUT"
+
+      - name: Verify live gate
+        run: |
+          set -uo pipefail
+          BASE="$PRIMARY_URL"
+          fail=0
+          echo "=== Headers on / ==="
+          curl -sSI "$BASE/" | grep -iE 'HTTP/|x-robots-tag|x-frame-options|x-content-type-options|referrer-policy' || true
+
+          echo "=== 1. Logged-out GET / must serve the gate, not content ==="
+          code=$(curl -sS -o body.html -w '%{http_code}' "$BASE/")
+          echo "GET / -> HTTP $code"
+          if grep -q 'name="password"' body.html; then echo "OK: password gate served"; else echo "FAIL: gate form missing"; fail=1; fi
+          if grep -qi 'TOP-SECRET\|playbook\|cockpit' body.html; then echo "FAIL: site content leaked to logged-out visitor"; fail=1; else echo "OK: no site content in logged-out view-source"; fi
+          if curl -sSI "$BASE/" | grep -qi 'x-robots-tag: *noindex'; then echo "OK: X-Robots-Tag noindex"; else echo "FAIL: X-Robots-Tag missing"; fail=1; fi
+
+          echo "=== 2. robots.txt readable (not gated) ==="
+          curl -sS "$BASE/robots.txt"; echo
+
+          echo "=== 3. Correct password -> 30x + Set-Cookie ==="
+          login=$(curl -sS -i -c cookies.txt --data-urlencode "password=$SITE_PW" --data-urlencode "redirect=/" "$BASE/")
+          echo "$login" | grep -iE 'HTTP/|^location:|^set-cookie:' | sed -E 's/(set-cookie: [^=]+=)[^;]+/\1***MASKED***/i'
+          if echo "$login" | grep -qiE 'set-cookie: *__Host-exotiq_session'; then echo "OK: session cookie set"; else echo "FAIL: no session cookie"; fail=1; fi
+          if echo "$login" | grep -qiE 'set-cookie:.*HttpOnly' && echo "$login" | grep -qiE 'set-cookie:.*Secure' && echo "$login" | grep -qiE 'set-cookie:.*SameSite=Strict'; then echo "OK: cookie HttpOnly+Secure+SameSite=Strict"; else echo "FAIL: cookie flags incomplete"; fail=1; fi
+
+          echo "=== 4. Authenticated GET / serves content ==="
+          code=$(curl -sS -b cookies.txt -o authed.html -w '%{http_code}' "$BASE/")
+          echo "authed GET / -> HTTP $code"
+          if grep -qiE 'playbook|cockpit|dashboard' authed.html; then echo "OK: hub content served when authenticated"; else echo "WARN: expected hub content (placeholder may differ)"; fi
+
+          echo "=== 5. Logout clears cookie ==="
+          curl -sSI -b cookies.txt "$BASE/logout" | grep -iE '^set-cookie:' | sed -E 's/(set-cookie: [^=]+=)[^;]*/\1/' || true
+
+          echo "=== RESULT ==="
+          if [ "$fail" -eq 0 ]; then echo "ALL CORE CHECKS PASSED"; else echo "SOME CHECKS FAILED"; exit 1; fi
