@@ -1,32 +1,37 @@
 name: Deploy to Netlify
 
-# Manual-trigger only. Credentials are passed as masked inputs at dispatch time,
-# so nothing sensitive lives in the repo. The runner can reach Netlify (the Claude
-# Code web sandbox cannot), so this is how the site is deployed and verified live.
+# Optional MANUAL deploy of the static hub + password-gate edge function.
+#
+# Credentials come from repository Actions secrets (Settings -> Secrets and
+# variables -> Actions), never from the repo or from dispatch inputs:
+#   - NETLIFY_AUTH_TOKEN : a Netlify personal access token
+#   - SITE_PASSWORD      : the shared site password
+# GitHub-hosted runners can reach Netlify (the Claude Code web sandbox cannot).
+#
+# RECOMMENDED instead: Netlify "native" Git deploy (Site configuration -> Build &
+# deploy -> Link repository), which auto-deploys on push with no secrets in CI.
+# This workflow is a manual fallback that also re-verifies the live gate.
 on:
   workflow_dispatch:
-    inputs:
-      netlify_auth_token:
-        description: "Netlify personal access token"
-        required: true
-      site_id:
-        description: "Netlify site ID"
-        required: true
-      site_password:
-        description: "Shared SITE_PASSWORD value (kept out of git)"
-        required: true
+
+env:
+  SITE_ID: f3679f6a-1ca7-42b0-9ea9-f8fd1920115d
+  PRIMARY_URL: https://nimble-zuccutto-5fb8e9.netlify.app
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      NETLIFY_AUTH_TOKEN: ${{ inputs.netlify_auth_token }}
-      SITE_ID: ${{ inputs.site_id }}
-      SITE_PW: ${{ inputs.site_password }}
-      PRIMARY_URL: https://nimble-zuccutto-5fb8e9.netlify.app
+      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      SITE_PW: ${{ secrets.SITE_PASSWORD }}
     steps:
-      - name: Mask credentials in logs
+      - name: Check required secrets
         run: |
+          if [ -z "${NETLIFY_AUTH_TOKEN:-}" ] || [ -z "${SITE_PW:-}" ]; then
+            echo "::error::Set NETLIFY_AUTH_TOKEN and SITE_PASSWORD repository secrets first."
+            exit 1
+          fi
+          # Belt-and-suspenders (GitHub already masks registered secrets in logs).
           echo "::add-mask::$NETLIFY_AUTH_TOKEN"
           echo "::add-mask::$SITE_PW"
 

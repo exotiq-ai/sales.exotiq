@@ -50,27 +50,38 @@ Netlify Edge Function. Unauthenticated visitors never receive site content.
 
 ## Deploy
 
-No build step — these are static files, published from the repo root. The edge
-function in `netlify/edge-functions/` is bundled and deployed automatically.
+No build step — these are static files. The edge function in `netlify/edge-functions/`
+is bundled and deployed automatically.
 
-This site uses **Git-based continuous deployment** (the build runs on Netlify's
-servers, pulling from GitHub). The Netlify site is **`nimble-zuccutto-5fb8e9`**
-on the **ExotIQ** team (site ID `f3679f6a-1ca7-42b0-9ea9-f8fd1920115d`).
+The Netlify site is **`nimble-zuccutto-5fb8e9`** on the **ExotIQ** team
+(site ID `f3679f6a-1ca7-42b0-9ea9-f8fd1920115d`), live at
+<https://nimble-zuccutto-5fb8e9.netlify.app>.
 
-One-time setup in the Netlify dashboard:
+### Recommended: native Git deploy (auto-deploys on push, no secrets in CI)
 
 1. **Link the repo.** Site `nimble-zuccutto-5fb8e9` → Site configuration → Build &
    deploy → Continuous deployment → **Link repository** → `exotiq-ai/sales.exotiq`,
    production branch `claude/determined-ritchie-k42fvk` (or `main` if you merge there).
    Build command: *(none)*. Publish directory: `.` (already in `netlify.toml`).
 2. **Set the password.** Site configuration → Environment variables → add
-   `SITE_PASSWORD` = *(your shared password)* (mark as secret). **Keep it out of git** —
-   never commit the literal value.
-3. Trigger a deploy (it runs automatically on the next push, or use "Trigger deploy").
+   `SITE_PASSWORD` = *(your shared password)* (mark as secret). **Keep it out of git.**
 
-> A direct `netlify deploy --prod` works too if you run it from a machine that can
-> reach `api.netlify.com` (the Claude Code web sandbox cannot, due to its network
-> egress policy — hence Git-based deploy).
+### Fallback: manual GitHub Actions deploy (`.github/workflows/deploy.yml`)
+
+A `workflow_dispatch` workflow that deploys and re-verifies the live gate from a
+GitHub-hosted runner. It reads two **repository Actions secrets** — set them in
+Settings → Secrets and variables → Actions:
+
+- `NETLIFY_AUTH_TOKEN` — a Netlify personal access token
+- `SITE_PASSWORD` — the shared site password
+
+Nothing sensitive is stored in the repo; secrets are auto-masked in logs. Run it
+from the Actions tab → "Deploy to Netlify" → Run workflow. (Delete this workflow
+if you only use native Git deploy.)
+
+> A direct `netlify deploy --prod` from your own machine works too — the Claude
+> Code web sandbox can't reach `api.netlify.com` (network egress policy), which is
+> why deploys run on a GitHub runner or Netlify's build servers instead.
 
 ## Configuration owned in the Netlify dashboard
 
