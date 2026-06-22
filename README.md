@@ -50,21 +50,35 @@ Netlify Edge Function. Unauthenticated visitors never receive site content.
 
 ## Deploy
 
-No build step — these are static files, published from the repo root.
+No build step — these are static files, published from the repo root. The edge
+function in `netlify/edge-functions/` is bundled and deployed automatically.
 
-```
-netlify deploy --prod   # publish directory "."
-```
+This site uses **Git-based continuous deployment** (the build runs on Netlify's
+servers, pulling from GitHub). The Netlify site is **`nimble-zuccutto-5fb8e9`**
+on the **ExotIQ** team (site ID `f3679f6a-1ca7-42b0-9ea9-f8fd1920115d`).
+
+One-time setup in the Netlify dashboard:
+
+1. **Link the repo.** Site `nimble-zuccutto-5fb8e9` → Site configuration → Build &
+   deploy → Continuous deployment → **Link repository** → `exotiq-ai/sales.exotiq`,
+   production branch `claude/determined-ritchie-k42fvk` (or `main` if you merge there).
+   Build command: *(none)*. Publish directory: `.` (already in `netlify.toml`).
+2. **Set the password.** Site configuration → Environment variables → add
+   `SITE_PASSWORD` = `ExotiqAI2026!` (mark as secret). **Not stored in git.**
+3. Trigger a deploy (it runs automatically on the next push, or use "Trigger deploy").
+
+> A direct `netlify deploy --prod` works too if you run it from a machine that can
+> reach `api.netlify.com` (the Claude Code web sandbox cannot, due to its network
+> egress policy — hence Git-based deploy).
 
 ## Configuration owned in the Netlify dashboard
 
-1. **Password** — `SITE_PASSWORD` is set as an environment variable (not in git).
-   Rotate it any time in Site configuration → Environment variables.
-2. **Custom domain** — add `sales.exotiq.ai` in Domain management.
-3. **DNS** — at the DNS provider for `exotiq.ai`, add a `CNAME`: host `sales` →
+1. **Custom domain** — add `sales.exotiq.ai` in Domain management.
+2. **DNS** — at the DNS provider for `exotiq.ai`, add a `CNAME`: host `sales` →
    the Netlify site target. Netlify provisions HTTPS automatically once DNS resolves.
-4. **Dashboard URL** — in `index.html`, replace `href="REPLACE_WITH_DASHBOARD_URL"`
-   (also marked `data-dashboard-link`) with the live dashboard URL.
+3. **Dashboard URL** — already set in `index.html` to
+   `https://leadsbysaul.netlify.app/dashboard` (the `data-dashboard-link` card).
+   Update it there if the dashboard URL changes.
 
 ## Note on access model
 
