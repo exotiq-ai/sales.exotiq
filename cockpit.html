@@ -1,27 +1,769 @@
-<!doctype html>
-<!--
-  PLACEHOLDER — replace this file with the finished cockpit.html
-  (exotiq-call-cockpit.html). Do not ship as-is.
--->
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="robots" content="noindex, nofollow" />
-  <title>exotiq · Call Cockpit</title>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Montserrat:wght@400;500&display=swap" rel="stylesheet" />
-  <style>
-    body { margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px;
-      background:#0A1929; color:#E8EEF4; font-family:"Montserrat",system-ui,sans-serif; text-align:center; }
-    h1 { font-family:"Manrope",sans-serif; color:#6EC1E4; }
-    a { color:#6EC1E4; }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Exotiq · Call Cockpit (Internal)</title>
+<link rel="icon" type="image/png" href="data:image/png;base64,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">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Montserrat:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#081521; --panel:#0E2233; --panel-2:#13293B; --raise:#16304380;
+    --line:rgba(132,170,195,.15); --line-2:rgba(132,170,195,.30);
+    --gulf:#6EC1E4; --gulf-dim:#4A8FB0; --gulf-soft:rgba(110,193,228,.13);
+    --orange:#F15A29; --orange-soft:rgba(241,90,41,.14);
+    --white:#F2F8FC; --muted:#9DB6C6; --dim:#6E879A;
+    --disp:'Manrope',sans-serif; --body:'Montserrat',sans-serif; --mono:'JetBrains Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{font-family:var(--body);background:var(--bg);color:var(--white);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow:hidden}
+  .mono{font-family:var(--mono)}
+  .num{font-variant-numeric:tabular-nums}
+  ::-webkit-scrollbar{width:9px;height:9px}
+  ::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:9px}
+
+  .lbl{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gulf)}
+  .lbl.dim{color:var(--dim)}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--gulf);flex:0 0 auto;box-shadow:0 0 0 4px var(--gulf-soft)}
+  .dot.live{animation:pulse 2.4s ease-in-out infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 3px var(--gulf-soft)}50%{box-shadow:0 0 0 7px rgba(110,193,228,.05)}}
+
+  /* shell */
+  .app{display:flex;flex-direction:column;height:100dvh;height:100vh}
+  .topbar{flex:0 0 auto;display:flex;align-items:center;gap:14px;padding:11px 18px;border-bottom:1px solid var(--line);background:#06101a}
+  .brand{display:flex;align-items:center;gap:9px}
+  .brand img{height:22px;width:22px;display:block}
+  .brand .wm{font-family:var(--disp);font-weight:800;font-size:18px;letter-spacing:-.02em;color:#fff}
+  .topbar .sep{width:1px;height:20px;background:var(--line-2)}
+  .topbar .ctx{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+  .topbar .now{margin-left:auto;display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  #viewTitle{display:none}
+
+  .body{flex:1;display:flex;min-height:0}
+  .nav{flex:0 0 232px;border-right:1px solid var(--line);background:#091a28;overflow-y:auto;padding:14px 12px}
+  .nav .grp{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);padding:14px 10px 7px}
+  .nav .grp:first-child{padding-top:4px}
+  .nav button{width:100%;display:flex;align-items:center;gap:10px;background:none;border:none;cursor:pointer;color:var(--muted);
+    font-family:var(--body);font-size:13.5px;font-weight:600;text-align:left;padding:9px 10px;border-radius:9px;transition:background .14s,color .14s}
+  .nav button .ix{font-family:var(--mono);font-size:10px;color:var(--dim);width:14px;flex:0 0 auto}
+  .nav button:hover{background:#0e2536;color:var(--white)}
+  .nav button.active{background:var(--gulf-soft);color:var(--white)}
+  .nav button.active .ix{color:var(--gulf)}
+  .nav button .ndot{margin-left:auto;width:7px;height:7px;border-radius:50%;background:var(--gulf);opacity:0;box-shadow:0 0 0 3px var(--gulf-soft)}
+  .nav button.active .ndot{opacity:1}
+
+  .content{flex:1;min-width:0;position:relative;overflow:auto}
+  .view{display:none;padding:24px 26px 30px;min-height:100%;max-width:1180px}
+  .view.on{display:block}
+  .vhead{display:flex;align-items:baseline;gap:12px;margin-bottom:4px}
+  .vhead h1{font-family:var(--disp);font-weight:800;font-size:24px;letter-spacing:-.025em;color:#fff}
+  .vsub{color:var(--muted);font-size:13.5px;margin-bottom:20px;max-width:70ch}
+
+  /* generic components */
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:16px 18px}
+  .grid{display:grid;gap:13px}
+  .g2{grid-template-columns:1fr 1fr}
+  .g3{grid-template-columns:1fr 1fr 1fr}
+  .quote{font-family:var(--disp);font-weight:700;letter-spacing:-.01em;color:var(--gulf)}
+  .say{color:var(--white);font-weight:500}
+  .q{display:block;background:#0c2030;border-left:3px solid var(--gulf-dim);border-radius:0 8px 8px 0;padding:9px 13px;margin-top:8px;font-size:14px;color:var(--white)}
+  .q.muted{border-left-color:var(--line-2)}
+  .tag{display:inline-block;font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gulf);background:var(--gulf-soft);border-radius:6px;padding:4px 9px}
+  .stop{color:var(--orange)!important;background:var(--orange-soft)!important;border-color:transparent!important}
+
+  /* call map / stages */
+  .stages{display:flex;flex-direction:column;gap:11px}
+  .stage-row{display:grid;grid-template-columns:46px 1fr;gap:14px;align-items:start;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .stage-row .sn{font-family:var(--disp);font-weight:800;font-size:21px;color:var(--gulf);line-height:1.1;display:flex;align-items:center;gap:0}
+  .stage-row h3{font-family:var(--disp);font-weight:700;font-size:16px;color:#fff;margin-bottom:3px;display:flex;align-items:center;gap:9px}
+  .stage-row p{font-size:13.5px;color:var(--muted)}
+  .stage-row .qline{margin-top:8px}
+
+  /* expandable rows (objections / tonality / access) */
+  .exp{background:var(--panel);border:1px solid var(--line);border-radius:11px;overflow:hidden}
+  .exp+.exp{margin-top:9px}
+  .exp .head{display:flex;align-items:center;gap:12px;padding:13px 15px;cursor:pointer}
+  .exp .head:hover{background:#0e2536}
+  .exp .k{font-weight:600;color:#fff;font-size:14.5px}
+  .exp .loop{margin-left:auto;color:var(--gulf);font-size:13px;text-align:right;font-weight:500;max-width:52%}
+  .exp .chev{flex:0 0 auto;color:var(--dim);transition:transform .2s;font-family:var(--mono);font-size:13px}
+  .exp.open .chev{transform:rotate(90deg)}
+  .exp .detail{display:none;padding:0 15px 15px;border-top:1px solid var(--line);font-size:14px;color:var(--white)}
+  .exp.open .detail{display:block;padding-top:13px}
+  .exp .detail .meta{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+
+  /* diagnostic master-detail */
+  .diag{display:grid;grid-template-columns:minmax(300px,1.05fr) 1.25fr;gap:16px}
+  .diag .list{display:flex;flex-direction:column;gap:7px;min-width:0}
+  .prob{display:grid;grid-template-columns:20px 1fr;gap:11px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:11px 13px;cursor:pointer;transition:border-color .14s,background .14s}
+  .prob:hover{background:#0e2536}
+  .prob.sel{border-color:var(--gulf-dim);background:var(--gulf-soft)}
+  .prob .pn{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--gulf)}
+  .prob .pt{font-weight:600;font-size:14px;color:#fff}
+  .prob .pc{font-size:11.5px;color:var(--dim);margin-top:1px}
+  .prob.sel .pc{color:var(--muted)}
+  .detailpane{background:var(--panel-2);border:1px solid var(--line-2);border-radius:13px;padding:18px 20px;align-self:start;position:sticky;top:0}
+  .pd{display:none}
+  .pd.on{display:block}
+  .pd h3{font-family:var(--disp);font-weight:800;font-size:18px;color:#fff;margin-bottom:3px}
+  .pd .cs{font-size:13.5px;color:var(--muted);margin-bottom:13px}
+  .pd .imp{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-bottom:13px}
+  .pd .impc{background:#0c2030;border:1px solid var(--line);border-radius:9px;padding:10px 11px}
+  .pd .impc .t{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gulf);margin-bottom:5px}
+  .pd .impc p{font-size:12.5px;color:var(--white);line-height:1.45}
+  .pd .rc{font-size:13.5px;margin-bottom:6px}
+  .pd .rc b,.pd .fs b{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-weight:600;display:block;margin-bottom:2px}
+  .pd .fs{font-size:13.5px;margin-bottom:13px}
+  .pd .gc{margin-bottom:13px}
+  .pd .sq .qh{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gulf);margin-bottom:6px}
+  .diagback{display:none}
+
+  /* gap model diagram */
+  .gapflow{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;margin-bottom:16px}
+  .gapbox{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px}
+  .gapbox .t{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:7px}
+  .gapbox.future{border-color:var(--gulf-dim);background:linear-gradient(180deg,var(--gulf-soft),transparent)}
+  .gapbox.future .t{color:var(--gulf)}
+  .gapbox p{font-size:13.5px;color:var(--white)}
+  .gapmid{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 18px;position:relative}
+  .gapmid .arrow{font-family:var(--mono);color:var(--gulf);font-size:20px;line-height:1}
+  .gapmid .glabel{font-family:var(--disp);font-weight:800;font-size:13px;color:var(--gulf);text-transform:uppercase;letter-spacing:.08em;margin-top:4px;white-space:nowrap}
+  .gapmid .gnote{font-size:10.5px;color:var(--dim);margin-top:2px}
+
+  /* product-to-gap */
+  .ptable{display:flex;flex-direction:column;gap:9px}
+  .prow{display:grid;grid-template-columns:1fr 26px 1.15fr;gap:12px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:13px 16px}
+  .prow .gap{font-weight:600;color:var(--white);font-size:14.5px}
+  .prow .ar{font-family:var(--mono);color:var(--gulf-dim);text-align:center}
+  .prow .cap{font-size:14px;color:var(--muted)}
+  .prow .cap b{font-family:var(--disp);color:var(--gulf);font-weight:700}
+
+  /* tonality */
+  .tones{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+  /* cold touch */
+  .ct-shape{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:14px}
+  .ct-step{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:11px 12px}
+  .ct-step .n{font-family:var(--mono);font-size:10px;color:var(--gulf);letter-spacing:.1em}
+  .ct-step p{font-size:12.5px;color:var(--white);margin-top:4px}
+  .chantabs{display:flex;gap:7px;margin-bottom:12px;flex-wrap:wrap}
+  .chantab{font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 14px;cursor:pointer}
+  .chantab.active{background:var(--gulf-soft);border-color:var(--gulf-dim);color:#fff}
+  .chanview{display:none}
+  .chanview.on{display:block}
+  .example{background:#0a1c2b;border:1px solid var(--line);border-left:3px solid var(--gulf-dim);border-radius:0 10px 10px 0;padding:14px 16px;font-size:13.5px;color:var(--white);white-space:pre-line;line-height:1.55}
+  .ct-cols{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;align-items:start}
+  .nots{list-style:none;display:flex;flex-direction:column;gap:7px;margin-top:8px}
+  .nots li{position:relative;padding-left:18px;font-size:13px;color:var(--muted)}
+  .nots li:before{content:"\00d7";position:absolute;left:0;color:var(--orange);font-weight:700}
+  .seq{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+  .seq .s{display:grid;grid-template-columns:78px 1fr;gap:10px;font-size:13px}
+  .seq .s .t{font-family:var(--mono);font-size:11px;color:var(--gulf);letter-spacing:.06em}
+
+  /* scorecard */
+  .sc-wrap{display:grid;grid-template-columns:1.5fr 1fr;gap:18px;align-items:start}
+  .sc-list{display:flex;flex-direction:column;gap:8px}
+  .sc-item{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:11px 14px}
+  .sc-item .qx{font-size:13.5px;color:var(--white)}
+  .sc-item .qx .n{font-family:var(--mono);font-size:11px;color:var(--dim);margin-right:7px}
+  .sc-seg{display:flex;gap:4px;flex:0 0 auto}
+  .sc-btn{font-family:var(--mono);font-size:13px;font-weight:600;width:30px;height:30px;border-radius:7px;border:1px solid var(--line-2);background:#0b1d2c;color:var(--muted);cursor:pointer;transition:all .12s}
+  .sc-btn:hover{border-color:var(--gulf-dim)}
+  .sc-btn.on{background:var(--gulf);border-color:var(--gulf);color:#06101a}
+  .sc-side{position:sticky;top:0;display:flex;flex-direction:column;gap:14px}
+  .sc-meter{background:var(--panel-2);border:1px solid var(--line-2);border-radius:13px;padding:18px;text-align:center}
+  .sc-meter .big{font-family:var(--disp);font-weight:800;font-size:54px;line-height:1;color:#fff}
+  .sc-meter .big span{color:var(--gulf)}
+  .sc-meter .of{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.1em;margin-top:4px}
+  .sc-verdict{margin-top:12px;font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:7px;border-radius:8px}
+  .sc-verdict.neutral{color:var(--dim);background:#0b1d2c}
+  .sc-verdict.good{color:#7fe3b0;background:rgba(107,227,168,.12)}
+  .sc-verdict.mid{color:var(--gulf);background:var(--gulf-soft)}
+  .sc-verdict.bad{color:var(--orange);background:var(--orange-soft)}
+  .sc-reset{margin-top:10px;width:100%;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:none;border:1px solid var(--line-2);border-radius:8px;padding:8px;cursor:pointer}
+  .sc-reset:hover{color:#fff;border-color:var(--gulf-dim)}
+  .diags{display:flex;flex-direction:column;gap:7px}
+  .diagrow{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:10px 12px;font-size:12.5px;color:var(--muted);transition:all .15s}
+  .diagrow b{color:var(--white);font-weight:600}
+  .diagrow.flag{border-color:var(--orange);background:var(--orange-soft)}
+  .diagrow.flag b{color:var(--orange)}
+  .exits{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+  .exits .ex{font-size:12.5px;color:var(--muted)}
+  .exits .ex b{color:var(--gulf);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;margin-right:6px}
+
+  .note{font-size:12.5px;color:var(--dim);margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
+
+  /* responsive */
+  @media(max-width:899px){
+    body{overflow:auto}
+    .app{height:auto;min-height:100dvh}
+    .body{flex-direction:column}
+    .nav{flex:0 0 auto;width:auto;border-right:none;border-bottom:1px solid var(--line);display:flex;overflow-x:auto;overflow-y:hidden;padding:9px 10px;position:sticky;top:0;z-index:5;gap:4px;white-space:nowrap}
+    .nav .grp{display:none}
+    .nav button{width:auto;flex:0 0 auto;padding:8px 12px;font-size:13px}
+    .nav button .ndot{display:none}
+    .content{overflow:visible}
+    .view{padding:18px 16px 40px}
+    .diag{grid-template-columns:1fr}
+    .detailpane{position:static}
+    .diag.hasdetail .list{display:none}
+    .diag:not(.hasdetail) .detailpane{display:none}
+    .diagback{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--gulf);background:none;border:none;cursor:pointer;margin-bottom:12px;padding:0}
+    .pd .imp{grid-template-columns:1fr}
+    .sc-wrap{grid-template-columns:1fr}
+    .sc-side{position:static}
+    .ct-cols{grid-template-columns:1fr}
+    .ct-shape{grid-template-columns:1fr 1fr}
+    .tones{grid-template-columns:1fr}
+    .gapflow{grid-template-columns:1fr}
+    .gapmid{flex-direction:row;padding:10px 0;gap:10px}
+    .gapmid .arrow{transform:rotate(90deg)}
+    .prow{grid-template-columns:1fr auto;gap:6px}
+    .prow .cap{grid-column:1/-1}
+    .exp .loop{display:none}
+    .g2,.g3{grid-template-columns:1fr}
+    #viewTitle{display:block;font-family:var(--disp);font-weight:800;font-size:15px;color:#fff}
+    .topbar .ctx,.topbar .now{display:none}
+  }
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  :focus-visible{outline:2px solid var(--gulf);outline-offset:2px}
+</style>
 </head>
 <body>
-  <div>
-    <h1>Call Cockpit</h1>
-    <p>Placeholder. Replace with the finished call cockpit (9 job aids).</p>
-    <p><a href="./index.html">← Back to the hub</a></p>
+<div class="app">
+
+  <header class="topbar">
+    <div class="brand"><img src="data:image/png;base64,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" alt="exotiq"><span class="wm">exotiq</span></div>
+    <div class="sep"></div>
+    <div class="ctx">Call Cockpit</div>
+    <div id="viewTitle"></div>
+    <div class="now"><span class="dot live"></span> Internal · reps only</div>
+  </header>
+
+  <div class="body">
+    <nav class="nav" aria-label="Cockpit assets">
+      <div class="grp">Live · on the call</div>
+      <button data-view="v-callmap" data-title="Call Map"><span class="ix">01</span>Call Map<span class="ndot"></span></button>
+      <button data-view="v-diagnostic" data-title="Diagnostic"><span class="ix">02</span>Diagnostic<span class="ndot"></span></button>
+      <button data-view="v-objections" data-title="Objections"><span class="ix">03</span>Objections<span class="ndot"></span></button>
+      <button data-view="v-gap" data-title="Gap Model"><span class="ix">04</span>Gap Model<span class="ndot"></span></button>
+      <button data-view="v-product" data-title="Product to Gap"><span class="ix">05</span>Product to Gap<span class="ndot"></span></button>
+      <button data-view="v-tonality" data-title="Tonality"><span class="ix">06</span>Tonality<span class="ndot"></span></button>
+      <div class="grp">Prep · before outreach</div>
+      <button data-view="v-access" data-title="Access Plays"><span class="ix">07</span>Access Plays<span class="ndot"></span></button>
+      <button data-view="v-coldtouch" data-title="Cold Touch"><span class="ix">08</span>Cold Touch<span class="ndot"></span></button>
+      <div class="grp">After · coaching</div>
+      <button data-view="v-scorecard" data-title="Call Scorecard"><span class="ix">09</span>Call Scorecard<span class="ndot"></span></button>
+    </nav>
+
+    <div class="content">
+
+      <!-- 01 CALL MAP -->
+      <section id="v-callmap" class="view">
+        <div class="vhead"><span class="lbl">Live</span><h1>The Call Map</h1></div>
+        <div class="vsub">The five stages, in order. This is the spine. Hold each stage until its exit criteria are true.</div>
+        <div class="stages">
+          <div class="stage-row">
+            <div class="sn">1<span class="dot live" style="margin-left:6px"></span></div>
+            <div>
+              <h3>Connection</h3>
+              <p>Disarm. "Not sure this is a fit, that's what these 15 minutes are for."</p>
+              <div class="qline">
+                <span class="lbl dim">First 60 seconds</span>
+                <span class="q">"Before I show you anything, how'd you get into running exotics? Most operators have a good story."</span>
+                <span class="q">"I'll be straight, I'm not sure this is even a fit for your setup. That's what these 15 minutes are for. Cool if I ask a few quick things?"</span>
+              </div>
+            </div>
+          </div>
+          <div class="stage-row">
+            <div class="sn">2</div>
+            <div><h3>Engagement</h3><p>Situation, then problem, then impact (money, time, emotion), then root cause, then future state, then the gap and qualifying. Almost all questions.</p></div>
+          </div>
+          <div class="stage-row">
+            <div class="sn">3</div>
+            <div><h3>Transition</h3><p>Get them to ask to see it.</p></div>
+          </div>
+          <div class="stage-row">
+            <div class="sn">4</div>
+            <div><h3>Presentation</h3><p>Show only gap-closers. Check for agreement after each.</p></div>
+          </div>
+          <div class="stage-row">
+            <div class="sn">5</div>
+            <div><h3>Commitment</h3><p>"Natural next step is the 30-day pilot on your fleet. Want me to set it up?"</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 DIAGNOSTIC -->
+      <section id="v-diagnostic" class="view">
+        <div class="vhead"><span class="lbl">Live</span><h1>The Diagnostic</h1></div>
+        <div class="vsub">Eight problems exotic operators have. Most have three to five live. Tap a problem to size the gap.</div>
+        <div class="diag" id="diagPane">
+          <div class="list">
+            <div class="prob" data-prob="1"><span class="pn">1</span><div><div class="pt">Pricing set by feel</div><div class="pc">No demand data, no time to watch the market &middot; AI-optimized pricing</div></div></div>
+            <div class="prob" data-prob="2"><span class="pn">2</span><div><div class="pt">Missing event-demand spikes</div><div class="pc">Finds out after the market already moved &middot; MotorIQ</div></div></div>
+            <div class="prob" data-prob="3"><span class="pn">3</span><div><div class="pt">Operation run across 5+ tools</div><div class="pc">Bolted the business together one app at a time &middot; The Command Center</div></div></div>
+            <div class="prob" data-prob="4"><span class="pn">4</span><div><div class="pt">Drowning in manual inquiries</div><div class="pc">Every booking question routes to the owner &middot; Rari</div></div></div>
+            <div class="prob" data-prob="5"><span class="pn">5</span><div><div class="pt">Double-bookings and calendar chaos</div><div class="pc">Channels that do not talk &middot; Unified calendar</div></div></div>
+            <div class="prob" data-prob="6"><span class="pn">6</span><div><div class="pt">Damage disputes and chargebacks</div><div class="pc">No documented condition at handoff &middot; Vault</div></div></div>
+            <div class="prob" data-prob="7"><span class="pn">7</span><div><div class="pt">Fraud and compliance exposure</div><div class="pc">Manual or no verification &middot; Vault verification layer</div></div></div>
+            <div class="prob" data-prob="8"><span class="pn">8</span><div><div class="pt">Turo dependency</div><div class="pc">Turo owns the customer and takes the cut &middot; Command Center OS</div></div></div>
+          </div>
+          <div class="detailpane">
+            <button class="diagback" id="diagBack">&larr; All problems</button>
+
+            <div class="pd" data-detail="1">
+              <h3>Pricing set by feel</h3>
+              <div class="cs">Sets rates by gut, by what they charged last time, or by glancing at a competitor. No systematic demand-based pricing.</div>
+              <div class="imp">
+                <div class="impc"><div class="t">Business</div><p>Operators typically leave 18 to 35% of pricing revenue on the table. On a 10-car fleet at roughly $1,000 a day, that gap can run into six figures a year.</p></div>
+                <div class="impc"><div class="t">Time</div><p>Hours a week second-guessing rates, checking competitors, and adjusting listings by hand.</p></div>
+                <div class="impc"><div class="t">Emotional</div><p>The nagging sense they are undercharging or scaring off bookings, and that someone sharper is beating them on the same cars.</p></div>
+              </div>
+              <div class="rc"><b>Root cause</b>No demand data and no time to watch the market closely enough to price it right.</div>
+              <div class="fs"><b>Future state</b>Rates adjust to real demand automatically. They stop guessing and know they are never leaving money on the table or pricing themselves out of a booking.</div>
+              <div class="gc"><span class="tag">Gap-closer &middot; AI-optimized pricing</span></div>
+              <div class="sq"><div class="qh">Surfacing questions</div>
+                <span class="q">"How are you setting your rates right now? Is that you deciding by feel, or do you have a system?"</span>
+                <span class="q">"When a big event hits your market, how do you decide when and how much to move rates?"</span>
+                <span class="q">"How often do you think you are either undercharging or losing a booking because the price was a little off?"</span>
+              </div>
+            </div>
+
+            <div class="pd" data-detail="2">
+              <h3>Missing event-demand spikes</h3>
+              <div class="cs">Reacts to surges (Barrett-Jackson, Art Basel, a fight weekend, SEMA, F1) after they start, usually once competitors raised prices.</div>
+              <div class="imp">
+                <div class="impc"><div class="t">Business</div><p>The richest pricing windows of the year are partly missed. The first and most profitable days of a spike get sold at normal rates.</p></div>
+                <div class="impc"><div class="t">Time</div><p>Scrambling to react once they realize an event is driving demand.</p></div>
+                <div class="impc"><div class="t">Emotional</div><p>Watching the spike happen and knowing they were a beat too slow, again.</p></div>
+              </div>
+              <div class="rc"><b>Root cause</b>No early signal. They find out demand is up after the market has already moved, not before.</div>
+              <div class="fs"><b>Future state</b>Alerted to demand surges before they happen, with rates and inventory positioned to capture the full window.</div>
+              <div class="gc"><span class="tag">Gap-closer &middot; MotorIQ</span></div>
+              <div class="sq"><div class="qh">Surfacing questions</div>
+                <span class="q">"How do you find out when a big event is about to spike demand in your market?"</span>
+                <span class="q">"Last big event weekend, did you have your rates and cars positioned ahead of it, or did you adjust once it was already happening?"</span>
+                <span class="q">"What would it be worth to know about a demand spike a week before your competitors do?"</span>
+              </div>
+            </div>
+
+            <div class="pd" data-detail="3">
+              <h3>Operation run across five or more tools</h3>
+              <div class="cs">Bookings in one place, payments in another, contracts as PDFs, comms in text and DMs, condition photos in the camera roll. Held together with tape.</div>
+              <div class="imp">
+                <div class="impc"><div class="t">Business</div><p>Things fall through the cracks. Missed follow-ups, lost paperwork, errors that cost real money.</p></div>
+                <div class="impc"><div class="t">Time</div><p>Operators typically lose 15 or more hours a week keeping the pieces in sync and re-entering the same information across tools.</p></div>
+                <div class="impc"><div class="t">Emotional</div><p>The constant low-grade chaos of running a six-figure-asset business out of a phone and a spreadsheet, knowing it will not scale.</p></div>
+              </div>
+              <div class="rc"><b>Root cause</b>They bolted the business together one app at a time as they grew, and never had time to consolidate.</div>
+              <div class="fs"><b>Future state</b>Every booking, payment, contract, message, and condition record in one place. One screen instead of five.</div>
+              <div class="gc"><span class="tag">Gap-closer &middot; The Command Center</span></div>
+              <div class="sq"><div class="qh">Surfacing questions</div>
+                <span class="q">"Walk me through what you are using to run the whole thing. Bookings, payments, contracts, damage. How many separate tools is that?"</span>
+                <span class="q">"When something falls through the cracks, where does it usually happen?"</span>
+                <span class="q">"If all of that lived in one place instead of five, what changes for you day to day?"</span>
+              </div>
+            </div>
+
+            <div class="pd" data-detail="4">
+              <h3>Drowning in manual inquiries</h3>
+              <div class="cs">The owner personally answers the same handful of questions (is it available, what's the deposit, do you deliver) dozens of times a day across DMs, texts, and calls.</div>
+              <div class="imp">
+                <div class="impc"><div class="t">Business</div><p>Slow replies lose bookings to faster competitors. The owner is the bottleneck on every deal.</p></div>
+                <div class="impc"><div class="t">Time</div><p>A huge share of the week goes to repetitive inquiry handling instead of growing. This is where the 15-plus hours a week often hides.</p></div>
+                <div class="impc"><div class="t">Emotional</div><p>Being chained to the phone. Never off. Answering the same question for the fortieth time while trying to have dinner.</p></div>
+              </div>
+              <div class="rc"><b>Root cause</b>Every booking conversation routes to the owner personally, because there is no system to handle the routine ones.</div>
+              <div class="fs"><b>Future state</b>Routine inquiries and bookings handled automatically and instantly, around the clock, while the owner keeps control of the real decisions and gets their time back.</div>
+              <div class="gc"><span class="tag">Gap-closer &middot; Rari</span></div>
+              <div class="sq"><div class="qh">Surfacing questions</div>
+                <span class="q">"How much of your day goes to just answering the same availability and deposit questions over and over?"</span>
+                <span class="q">"When you are out to dinner or with family, are you still answering booking messages?"</span>
+                <span class="q">"If you never had to personally reply to another 'is it available' message, what would you actually do with that time?"</span>
+              </div>
+            </div>
+
+            <div class="pd" data-detail="5">
+              <h3>Double-bookings and calendar chaos</h3>
+              <div class="cs">Bookings arrive from Turo, the operator's own site, Instagram DMs, and repeat clients, and live in separate places that do not sync.</div>
+              <div class="imp">
+                <div class="impc"><div class="t">Business</div><p>Double-bookings mean a scramble to move a car or a canceled reservation, a refund, and a burned customer. Each risks a review and a reputation hit.</p></div>
+                <div class="impc"><div class="t">Time</div><p>Manually cross-checking channels to make sure the same car is not promised twice.</p></div>
+                <div class="impc"><div class="t">Emotional</div><p>The fear of the call where two renters show up for the same Lamborghini.</p></div>
+              </div>
+              <div class="rc"><b>Root cause</b>Bookings live in separate channels that do not talk to each other.</div>
+              <div class="fs"><b>Future state</b>Every channel feeds one calendar. A car booked anywhere is instantly blocked everywhere. Double-bookings become structurally impossible.</div>
+              <div class="gc"><span class="tag">Gap-closer &middot; Unified Command Center calendar</span></div>
+              <div class="sq"><div class="qh">Surfacing questions</div>
+                <span class="q">"Your bookings come from a few places. How do you make sure the same car never gets promised twice?"</span>
+                <span class="q">"Has a double-booking ever happened? How did that go?"</span>
+                <span class="q">"How much time goes to just cross-checking your calendars to catch conflicts?"</span>
+              </div>
+            </div>
+
+            <div class="pd" data-detail="6">
+              <h3>Damage disputes and chargebacks</h3>
+              <div class="cs">When a car comes back damaged, the operator often cannot prove its exact condition at handoff. The renter says "that scratch was already there." Disputes and chargebacks follow.</div>
+              <div class="imp">
+                <div class="impc"><div class="t">Business</div><p>Lost disputes mean eating repair costs and losing chargebacks. On exotics, a single contested repair can run into the thousands or tens of thousands.</p></div>
+                <div class="impc"><div class="t">Time</div><p>Hours fighting disputes, gathering photos, arguing with renters and card processors.</p></div>
+                <div class="impc"><div class="t">Emotional</div><p>The anger and helplessness of knowing the renter caused the damage and not being able to prove it.</p></div>
+              </div>
+              <div class="rc"><b>Root cause</b>No documented, timestamped condition record at the moment of handoff.</div>
+              <div class="fs"><b>Future state</b>Every car's exact condition documented at handoff and return, every time. Disputes get won because the proof is undeniable, and many never start.</div>
+              <div class="gc"><span class="tag">Gap-closer &middot; Vault plus condition documentation</span></div>
+              <div class="sq"><div class="qh">Surfacing questions</div>
+                <span class="q">"When a car comes back with new damage and the renter says it was already there, how does that usually play out for you?"</span>
+                <span class="q">"How are you documenting condition at handoff today?"</span>
+                <span class="q">"What did the last damage dispute or chargeback actually cost you, between the repair and the time?"</span>
+              </div>
+            </div>
+
+            <div class="pd" data-detail="7">
+              <h3>Fraud and compliance exposure</h3>
+              <div class="cs">License, age, and identity verification is manual, inconsistent, or skipped. Exposed to fraudulent bookings, fake licenses, and worst case a stolen car.</div>
+              <div class="imp">
+                <div class="impc"><div class="t">Business</div><p>The average cost of a single compliance or verification failure runs around $47K. One stolen or fraudulently rented exotic can be catastrophic.</p></div>
+                <div class="impc"><div class="t">Time</div><p>Manually checking IDs and chasing verification, or the much larger time cost when something goes wrong.</p></div>
+                <div class="impc"><div class="t">Emotional</div><p>The deep unease of handing a stranger the keys to a $300,000 car on a gut read of their license.</p></div>
+              </div>
+              <div class="rc"><b>Root cause</b>Manual or absent verification of license, age, and identity, with no systematic fraud screening.</div>
+              <div class="fs"><b>Future state</b>Every renter verified automatically before they get the keys. Fraud caught up front. The operator stops relying on instinct for a six-figure risk.</div>
+              <div class="gc"><span class="tag">Gap-closer &middot; Vault verification layer</span></div>
+              <div class="sq"><div class="qh">Surfacing questions</div>
+                <span class="q">"How are you verifying a renter's license and identity before you hand over a car?"</span>
+                <span class="q">"Have you ever had a booking that felt off, or worse, a fraud situation? What happened?"</span>
+                <span class="q">"What is your exposure if the wrong person gets one of your cars? Have you put a number on that?"</span>
+              </div>
+            </div>
+
+            <div class="pd" data-detail="8">
+              <h3>Turo dependency</h3>
+              <div class="cs">A large share of bookings come through Turo, which takes a meaningful cut and owns the customer relationship.</div>
+              <div class="imp">
+                <div class="impc"><div class="t">Business</div><p>Turo's fees eat margin, especially on high-end cars. The operator never owns the customer, so they cannot build direct, repeat, higher-margin relationships.</p></div>
+                <div class="impc"><div class="t">Time</div><p>Operating inside Turo's rules and limits rather than their own system.</p></div>
+                <div class="impc"><div class="t">Emotional</div><p>The discomfort of a business that depends on a platform they do not control, that could change terms at any time.</p></div>
+              </div>
+              <div class="rc"><b>Root cause</b>Turo owns the booking channel and the customer, and the operator has no system of their own to capture and keep direct business.</div>
+              <div class="fs"><b>Future state</b>Turo becomes one channel among several, not the whole business. The operator owns their direct bookings and prices every channel together. Higher margin, more control, less dependency.</div>
+              <div class="gc"><span class="tag">Gap-closer &middot; Command Center as the OS above all channels</span></div>
+              <div class="sq"><div class="qh">Surfacing questions</div>
+                <span class="q">"On a Turo booking, who owns that customer afterward, you or Turo?"</span>
+                <span class="q">"What is Turo's cut doing to your margin on the higher-end cars?"</span>
+                <span class="q">"If a renter wants to book the same car directly next time, can you capture that, or does it have to go back through Turo?"</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 OBJECTIONS -->
+      <section id="v-objections" class="view">
+        <div class="vhead"><span class="lbl">Live</span><h1>Objection Quick-Loops</h1></div>
+        <div class="vsub">The one-line loop for any objection. Tap for the full handle. Never argue. Always question.</div>
+
+        <div class="exp">
+          <div class="head" data-toggle><span class="k">"Already use X"</span><span class="loop">does it price for demand and unify your channels?</span><span class="chev">&rsaquo;</span></div>
+          <div class="detail"><div class="meta">HQ Rental / Turo / spreadsheets / GoHighLevel</div>Don't attack the tool. "Makes sense, a lot of operators start there. Does it actually price your calendar for demand, or is that still you? And does it pull your Turo and direct bookings into one place?" Let them find the gap.</div>
+        </div>
+        <div class="exp">
+          <div class="head" data-toggle><span class="k">"Turo's fine"</span><span class="loop">who owns the customer, what's the fee doing to margin?</span><span class="chev">&rsaquo;</span></div>
+          <div class="detail"><div class="meta">Turo handles my insurance and customers</div>"Totally, Turo's great for filling days. On a Turo booking though, who owns that customer afterward, you or Turo? And what's the cut doing to your margin on the high-end cars?" Surface the dependency and the margin. We are the OS for what Turo cannot serve.</div>
+        </div>
+        <div class="exp">
+          <div class="head" data-toggle><span class="k">"Too small"</span><span class="loop">small fleets bleed most per car.</span><span class="chev">&rsaquo;</span></div>
+          <div class="detail">"Honestly, smaller operators often bleed the most per car, because every idle day and mispriced booking is a bigger slice of a smaller fleet. The question's less about size and more about whether the leaks are worth plugging. Want to see what it'd look like on your cars first?"</div>
+        </div>
+        <div class="exp">
+          <div class="head" data-toggle><span class="k">"Send info"</span><span class="loop">info means nothing until you see it on your fleet.</span><span class="chev">&rsaquo;</span></div>
+          <div class="detail"><div class="meta">Usually means "I'm not convinced it's worth my time"</div>"Happy to, but the info doesn't mean much until you see it on your fleet. It's 15 minutes looking at your own cars and numbers, way more useful than a deck. Better earlier or later in the day?"</div>
+        </div>
+        <div class="exp">
+          <div class="head" data-toggle><span class="k">"What's it cost"</span><span class="loop">it pays for itself off pricing lift, let me show you first.</span><span class="chev">&rsaquo;</span></div>
+          <div class="detail"><div class="meta">Early price question</div>"Fair question, straight answer: it depends a bit on your fleet, and it's structured to pay for itself off the pricing lift alone. Before I throw out a number missing context, can I show you what you're getting on your cars? Then the price makes sense." Stay neutral. Never defensive.</div>
+        </div>
+        <div class="exp">
+          <div class="head" data-toggle><span class="k">"Don't trust AI"</span><span class="loop">Rari handles the repetitive stuff, you keep control.</span><span class="chev">&rsaquo;</span></div>
+          <div class="detail"><div class="meta">Don't trust AI with my cars or customers</div>"I get it, six-figure cars and your reputation. So to be clear, Rari handles the repetitive inquiry and booking stuff so you stop answering the same DM forty times, but you stay in control of the actual decisions. Time back without taking your hands off the wheel. Want to see exactly where it does and doesn't act on its own?"</div>
+        </div>
+        <div class="exp">
+          <div class="head" data-toggle><span class="k">"No time to switch"</span><span class="loop">we do the onboarding, the chaos costs more.</span><span class="chev">&rsaquo;</span></div>
+          <div class="detail">"That's exactly why we do the onboarding for you, your fleet loaded in. The real question is how much the current chaos already costs you weekly. If we hand you back 15 hours, the switch pays for itself fast. The 30-day pilot is built so you risk almost nothing to find out."</div>
+        </div>
+        <div class="exp">
+          <div class="head" data-toggle><span class="k">"Let me think"</span><span class="loop">what's the part you'd want to think through?</span><span class="chev">&rsaquo;</span></div>
+          <div class="detail">"Totally fair. So I know I covered it right, what's the part you'd want to think through, the pricing, the switch, or the timing?" Whatever they name is the real objection. Handle it, ask for the step again.</div>
+        </div>
+        <div class="exp">
+          <div class="head" data-toggle><span class="k">"Integrate with Turo?"</span><span class="loop">yes, it sits above Turo as the command layer.</span><span class="chev">&rsaquo;</span></div>
+          <div class="detail">"Yeah, it sits above Turo. Think of Turo as one of your booking channels and Exotiq as the command layer over all of them, your site, your DMs, repeat clients, and Turo, all priced together. We're not replacing Turo. We're the operating system for the parts Turo was never built to run."</div>
+        </div>
+      </section>
+
+      <!-- 04 GAP MODEL -->
+      <section id="v-gap" class="view">
+        <div class="vhead"><span class="lbl">Live</span><h1>The Gap Model</h1></div>
+        <div class="vsub">The gap is the deal. Size it in their numbers. The bigger and more vivid, the more motivated they are.</div>
+        <div class="gapflow">
+          <div class="gapbox"><div class="t">Current state</div><p>Where they are now, in their own words and their own numbers.</p></div>
+          <div class="gapmid"><div class="arrow">&rarr;</div><div class="glabel">The Gap</div><div class="gnote">= the deal</div></div>
+          <div class="gapbox future"><div class="t">Future state</div><p>Where they want to be, including the feeling of it.</p></div>
+        </div>
+        <div class="grid g3" style="margin-bottom:13px">
+          <div class="card"><span class="lbl">Money</span><p style="margin-top:6px;font-size:13.5px;color:var(--muted)">The logic for change.</p></div>
+          <div class="card"><span class="lbl">Time</span><p style="margin-top:6px;font-size:13.5px;color:var(--muted)">The operator's real currency.</p></div>
+          <div class="card"><span class="lbl">Emotion</span><p style="margin-top:6px;font-size:13.5px;color:var(--muted)">The urgency. Money alone rarely moves people.</p></div>
+        </div>
+        <div class="card">
+          <p style="font-size:14px;color:var(--white)"><b style="font-family:var(--disp)">Never sell to need. Sell to the problem.</b> Find the root cause under the symptom.</p>
+          <p style="font-size:14px;color:var(--orange);margin-top:9px;font-weight:600">No real gap = no deal. Disqualify and protect your selling time.</p>
+        </div>
+      </section>
+
+      <!-- 05 PRODUCT TO GAP -->
+      <section id="v-product" class="view">
+        <div class="vhead"><span class="lbl">Live</span><h1>Product to Gap</h1></div>
+        <div class="vsub">For the presentation. Show only the closer for a gap they named and sized. Check for agreement after each.</div>
+        <div class="ptable">
+          <div class="prow"><span class="gap">Pricing gap</span><span class="ar">&rarr;</span><span class="cap"><b>AI pricing</b> &middot; 18 to 35% lift, typical</span></div>
+          <div class="prow"><span class="gap">Missed event demand</span><span class="ar">&rarr;</span><span class="cap"><b>MotorIQ</b></span></div>
+          <div class="prow"><span class="gap">Manual inquiry overload</span><span class="ar">&rarr;</span><span class="cap"><b>Rari</b> &middot; 15+ hrs/week saved</span></div>
+          <div class="prow"><span class="gap">Five tools, chaos</span><span class="ar">&rarr;</span><span class="cap"><b>Command Center</b> &middot; 5+ systems to one</span></div>
+          <div class="prow"><span class="gap">Disputes, fraud, compliance</span><span class="ar">&rarr;</span><span class="cap"><b>Vault</b> &middot; ~$47K avg cost of one failure</span></div>
+        </div>
+        <div class="note">Ranges only, framed as "operators typically," never a guarantee. Each agreement is a micro-yes that stacks toward the close.</div>
+      </section>
+
+      <!-- 06 TONALITY -->
+      <section id="v-tonality" class="view">
+        <div class="vhead"><span class="lbl">Live</span><h1>Tonality</h1></div>
+        <div class="vsub">The more relaxed and curious you are, the more open they get. Tap a tone for the sound of it.</div>
+        <div class="tones">
+          <div class="exp"><div class="head" data-toggle><span class="k">Curious</span><span class="loop">home base</span><span class="chev">&rsaquo;</span></div><div class="detail">Most of the call lives here. <span class="q">"Oh interesting, so how do you handle that right now?"</span></div></div>
+          <div class="exp"><div class="head" data-toggle><span class="k">Concerned / empathetic</span><span class="loop">on their pain</span><span class="chev">&rsaquo;</span></div><div class="detail">When they describe pain. Slower, softer. <span class="q">"Yeah, that eats your whole weekend."</span></div></div>
+          <div class="exp"><div class="head" data-toggle><span class="k">Playful</span><span class="loop">disarm ego</span><span class="chev">&rsaquo;</span></div><div class="detail">Lowers stakes, disarms ego. <span class="q">"No judgment, half the operators I talk to run the whole thing off a notes app."</span></div></div>
+          <div class="exp"><div class="head" data-toggle><span class="k">Skeptical / challenging</span><span class="loop">once, to make them defend the status quo</span><span class="chev">&rsaquo;</span></div><div class="detail">Used sparingly, once. <span class="q">"Really, you're okay leaving that on the table?"</span></div></div>
+          <div class="exp"><div class="head" data-toggle><span class="k">Neutral / matter-of-fact</span><span class="loop">on numbers and price</span><span class="chev">&rsaquo;</span></div><div class="detail">For numbers, price, and next steps. The calmer you are about money, the more in control you seem. Excitement reads as commission breath.</div></div>
+        </div>
+      </section>
+
+      <!-- 07 ACCESS -->
+      <section id="v-access" class="view">
+        <div class="vhead"><span class="lbl">Prep</span><h1>Access Plays</h1></div>
+        <div class="vsub">Arena Zero. The gatekeeper is the operator himself or a junior filter, not an exec assistant. Tap a lever for the detail.</div>
+        <div class="exp"><div class="head" data-toggle><span class="k">Channel diversity, not repetition</span><span class="chev">&rsaquo;</span></div><div class="detail">Be everywhere with relevance, not desperate on one channel. Four touches across four channels reads as "this person is everywhere and clearly serious." Five touches on one channel reads as "this person is desperate."</div></div>
+        <div class="exp"><div class="head" data-toggle><span class="k">Relevance sharp enough to pass the filter</span><span class="chev">&rsaquo;</span></div><div class="detail">The junior admin or busy operator gives a message two seconds. Reference their specific cars, their market, an upcoming local event, something only someone who actually looked would know. Generic dies. Specific gets passed up the chain or gets a reply.</div></div>
+        <div class="exp"><div class="head" data-toggle><span class="k">Peer credibility as the pass-through</span><span class="chev">&rsaquo;</span></div><div class="detail">Lead with "the Turo 1% host who built the software." A junior person hearing that does not feel equipped to say no. It is a peer, not a pitch. Lead with the credential that makes the filter nervous to block you.</div></div>
+        <div class="exp"><div class="head" data-toggle><span class="k">The insight hook</span><span class="chev">&rsaquo;</span></div><div class="detail">Lead with a sharp, specific, slightly provocative observation that makes them think "this person sees something I missed." <span class="q">"Most Scottsdale operators find out Barrett-Jackson spiked demand after the first two days already sold at normal rates. That's the most expensive week of the year to be a beat slow."</span> Use insight to open the door. Use questions to walk through it on the call.</div></div>
+        <div class="exp" style="border-color:var(--gulf-dim)"><div class="head" data-toggle><span class="k" style="color:var(--gulf)">Drive Exotiq, the unfair advantage</span><span class="chev">&rsaquo;</span></div><div class="detail">Events are pipeline. You are standing next to operators at 7am with a coffee, not cold-DMing them. The warmest possible top of funnel, and it is yours. Build the referral ask into the pilot: "who are the two other operators you respect most in the market?" One referral beats a hundred cold DMs.</div></div>
+        <div class="note">Self-sourcing order, top-down: warm referrals, real-world presence, targeted social and LinkedIn sourcing, then cold multi-channel sequences. The bottom is the least efficient, even though it feels the most like doing sales.</div>
+      </section>
+
+      <!-- 08 COLD TOUCH -->
+      <section id="v-coldtouch" class="view">
+        <div class="vhead"><span class="lbl">Prep</span><h1>Cold Touch</h1></div>
+        <div class="vsub">The bridge from access to a call. Open a loop, never make a claim. Adapt, never send blind.</div>
+        <div class="ct-cols">
+          <div>
+            <span class="lbl">The four-part shape</span>
+            <div class="ct-shape" style="margin-top:9px">
+              <div class="ct-step"><div class="n">01</div><p>Specific observation about them. Their fleet, a post, their market, an event.</p></div>
+              <div class="ct-step"><div class="n">02</div><p>One implied problem or insight, framed lightly. A peer noticing, not an accusation.</p></div>
+              <div class="ct-step"><div class="n">03</div><p>A one-line hint of the fix, zero feature-dump. "I built the thing I wish I'd had."</p></div>
+              <div class="ct-step"><div class="n">04</div><p>A soft, low-commitment CTA. 15 minutes, fleet loaded in.</p></div>
+            </div>
+            <span class="lbl">Worked example</span>
+            <div class="chantabs" style="margin-top:9px">
+              <button class="chantab active" data-chan="dm">Instagram DM</button>
+              <button class="chantab" data-chan="email">Cold Email</button>
+              <button class="chantab" data-chan="li">LinkedIn</button>
+            </div>
+            <div class="chanview on" data-chanview="dm">
+              <div class="example">Your Scottsdale lineup is clean. The SV and the 720S especially.
+
+Quick one: how are you handling pricing around Barrett-Jackson week? Most operators find out the demand spike already happened by the time they bump rates.
+
+I ran a fleet before I built Exotiq, so I built the pricing and ops layer I wish I'd had. Founding operators in Scottsdale are locking it in now.
+
+Worth 15 minutes? I'll load your fleet in and show you what it looks like.</div>
+            </div>
+            <div class="chanview" data-chanview="email">
+              <div class="example">Subject: your midweek calendar
+
+Saw the fleet. Twelve cars, mostly Lambos and AMGs, strong presence.
+
+Most operators your size leave real money in two places: midweek idle days and event-week pricing set a beat too late. Not a knock. It's just hard to run pricing, bookings, contracts, and damage out of five tools at once.
+
+I built Exotiq after running my own fleet. It pulls all of that into one place and prices the calendar for you. Operators typically see meaningful lift in the first season, plus a lot of weekends back.
+
+Grab 15 minutes this week? I'll have your fleet loaded in so you're looking at your own cars.
+
+Gregory Ringler | Founder, Exotiq AI
+gregory@exotiq.ai | 970.343.9634
+https://calendly.com/hello-exotiq</div>
+            </div>
+            <div class="chanview" data-chanview="li">
+              <div class="example">We have not met, but we are in the same world. I ran an exotic fleet, hit Turo's 1% as a host, and got tired of running the operation out of spreadsheets and DMs.
+
+So I built Exotiq. It is the command layer for operators like you: pricing, bookings, contracts, verification, and damage in one place. We are onboarding a small number of operators in your market this quarter.
+
+If you're open to it, grab 15 minutes here and I'll walk you through it with your fleet loaded in: https://calendly.com/hello-exotiq</div>
+            </div>
+          </div>
+          <div>
+            <div class="card">
+              <span class="lbl stop" style="color:var(--orange)">It must not</span>
+              <ul class="nots">
+                <li>List features. Rari, Vault, MotorIQ stay mysteries until the call.</li>
+                <li>Quote price.</li>
+                <li>Make hard ROI promises. Ranges only, "operators typically."</li>
+                <li>Run discovery. One light question is fine. A questionnaire is not.</li>
+              </ul>
+            </div>
+            <div class="card" style="margin-top:13px">
+              <span class="lbl">Sequence</span>
+              <div class="seq">
+                <div class="s"><span class="t">Touch 1 · Day 0</span><span>Value-first observation. No hard sell.</span></div>
+                <div class="s"><span class="t">Touch 2 · Day 3-4</span><span>New angle or proof point. Different pain than touch 1. Never "just following up."</span></div>
+                <div class="s"><span class="t">Touch 3 · Day 7-10</span><span>Gentle scarcity. "Finalizing the founding operators for [market] this quarter." Still respectful.</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 09 SCORECARD -->
+      <section id="v-scorecard" class="view">
+        <div class="vhead"><span class="lbl">After</span><h1>Call Scorecard</h1></div>
+        <div class="vsub">Score each call 0, 1, or 2. A strong call is 14 or higher. Below 10, something broke, and the line items tell you where.</div>
+        <div class="sc-wrap">
+          <div class="sc-list">
+            <div class="sc-item" data-stage="connection" data-score=""><div class="qx"><span class="n">1</span>Did the rep talk less than the operator?</div><div class="sc-seg"><button class="sc-btn" data-val="0">0</button><button class="sc-btn" data-val="1">1</button><button class="sc-btn" data-val="2">2</button></div></div>
+            <div class="sc-item" data-stage="engagement" data-score=""><div class="qx"><span class="n">2</span>Did the operator name at least one problem in their own words, unprompted?</div><div class="sc-seg"><button class="sc-btn" data-val="0">0</button><button class="sc-btn" data-val="1">1</button><button class="sc-btn" data-val="2">2</button></div></div>
+            <div class="sc-item" data-stage="engagement" data-score=""><div class="qx"><span class="n">3</span>Was at least one gap quantified in the operator's own numbers, across money and time and emotion?</div><div class="sc-seg"><button class="sc-btn" data-val="0">0</button><button class="sc-btn" data-val="1">1</button><button class="sc-btn" data-val="2">2</button></div></div>
+            <div class="sc-item" data-stage="engagement" data-score=""><div class="qx"><span class="n">4</span>Was a root cause identified, not just the symptom?</div><div class="sc-seg"><button class="sc-btn" data-val="0">0</button><button class="sc-btn" data-val="1">1</button><button class="sc-btn" data-val="2">2</button></div></div>
+            <div class="sc-item" data-stage="engagement" data-score=""><div class="qx"><span class="n">5</span>Did the operator describe a future state?</div><div class="sc-seg"><button class="sc-btn" data-val="0">0</button><button class="sc-btn" data-val="1">1</button><button class="sc-btn" data-val="2">2</button></div></div>
+            <div class="sc-item" data-stage="presentation" data-score=""><div class="qx"><span class="n">6</span>Did the rep stay neutral on price?</div><div class="sc-seg"><button class="sc-btn" data-val="0">0</button><button class="sc-btn" data-val="1">1</button><button class="sc-btn" data-val="2">2</button></div></div>
+            <div class="sc-item" data-stage="transition" data-score=""><div class="qx"><span class="n">7</span>Did the operator ask to see the product (earned transition)?</div><div class="sc-seg"><button class="sc-btn" data-val="0">0</button><button class="sc-btn" data-val="1">1</button><button class="sc-btn" data-val="2">2</button></div></div>
+            <div class="sc-item" data-stage="commitment" data-score=""><div class="qx"><span class="n">8</span>Was there a clear committed next step, or a clearly named objection?</div><div class="sc-seg"><button class="sc-btn" data-val="0">0</button><button class="sc-btn" data-val="1">1</button><button class="sc-btn" data-val="2">2</button></div></div>
+            <div class="sc-item" data-stage="commitment" data-score=""><div class="qx"><span class="n">9</span>Did the rep qualify in or out correctly?</div><div class="sc-seg"><button class="sc-btn" data-val="0">0</button><button class="sc-btn" data-val="1">1</button><button class="sc-btn" data-val="2">2</button></div></div>
+          </div>
+          <div class="sc-side">
+            <div class="sc-meter">
+              <div class="big"><span id="scTotal">0</span> / 18</div>
+              <div class="of">Strong call = 14+</div>
+              <div class="sc-verdict neutral" id="scVerdict">Score all nine</div>
+              <button class="sc-reset" id="scReset">Reset</button>
+            </div>
+            <div>
+              <span class="lbl">Where deals die</span>
+              <div class="diags" style="margin-top:9px">
+                <div class="diagrow" data-diag="connection"><b>Connection.</b> Rep pitched too early, brace never dropped. Fix: more disarm, more curiosity, slow down.</div>
+                <div class="diagrow" data-diag="engagement"><b>Engagement.</b> Discovery too shallow, no gap sized, rep talked too much. Fix: more impact questions, get the numbers across all three, then be quiet.</div>
+                <div class="diagrow" data-diag="transition"><b>Transition.</b> Rep presented before they asked, or the gap was never vivid. Fix: do not present until they ask, size the gap harder first.</div>
+                <div class="diagrow" data-diag="presentation"><b>Presentation.</b> Rep feature-dumped, showed things they never asked about. Fix: show only gap-closers, check agreement after each.</div>
+                <div class="diagrow" data-diag="commitment"><b>Commitment.</b> An unsurfaced objection, or no real gap to begin with. Fix: loop for the real objection, check the gap was big enough.</div>
+              </div>
+            </div>
+            <div>
+              <span class="lbl">Stage-exit criteria</span>
+              <div class="exits" style="margin-top:8px">
+                <div class="ex"><b>Connection</b>talking openly, pitch-brace gone, small yes to ask.</div>
+                <div class="ex"><b>Engagement</b>a live problem, its gap sized three ways in their numbers, root cause, future state, decision-maker confirmed.</div>
+                <div class="ex"><b>Transition</b>they asked or agreed to see the fix.</div>
+                <div class="ex"><b>Presentation</b>they agreed each capability closes a gap they named.</div>
+                <div class="ex"><b>Commitment</b>they agreed to the pilot or named the specific remaining objection.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
   </div>
+</div>
+
+<script>
+  var views=document.querySelectorAll('.view');
+  var navbtns=document.querySelectorAll('.nav button[data-view]');
+  var title=document.getElementById('viewTitle');
+  function show(id){
+    views.forEach(function(v){v.classList.toggle('on',v.id===id);});
+    navbtns.forEach(function(b){b.classList.toggle('active',b.dataset.view===id);});
+    var a=Array.prototype.find.call(navbtns,function(b){return b.dataset.view===id;});
+    if(a&&title)title.textContent=a.dataset.title||'';
+    var c=document.querySelector('.content'); if(c)c.scrollTop=0;
+    window.scrollTo(0,0);
+  }
+  navbtns.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.view);});});
+  show('v-callmap');
+
+  document.querySelectorAll('[data-toggle]').forEach(function(t){
+    t.addEventListener('click',function(){t.closest('.exp').classList.toggle('open');});
+  });
+
+  var probItems=document.querySelectorAll('[data-prob]');
+  var probDetails=document.querySelectorAll('[data-detail]');
+  var diagPane=document.getElementById('diagPane');
+  function showProb(n){
+    probItems.forEach(function(i){i.classList.toggle('sel',i.dataset.prob===n);});
+    probDetails.forEach(function(d){d.classList.toggle('on',d.dataset.detail===n);});
+    if(diagPane)diagPane.classList.add('hasdetail');
+  }
+  probItems.forEach(function(i){i.addEventListener('click',function(){showProb(i.dataset.prob);});});
+  showProb('1'); if(diagPane)diagPane.classList.remove('hasdetail');
+  var db=document.getElementById('diagBack');
+  if(db)db.addEventListener('click',function(){if(diagPane)diagPane.classList.remove('hasdetail');});
+
+  document.querySelectorAll('[data-chan]').forEach(function(t){
+    t.addEventListener('click',function(){
+      document.querySelectorAll('[data-chan]').forEach(function(x){x.classList.toggle('active',x===t);});
+      document.querySelectorAll('[data-chanview]').forEach(function(v){v.classList.toggle('on',v.dataset.chanview===t.dataset.chan);});
+    });
+  });
+
+  var scItems=document.querySelectorAll('.sc-item');
+  function recompute(){
+    var total=0,answered=0,def={connection:0,engagement:0,transition:0,presentation:0,commitment:0};
+    scItems.forEach(function(it){
+      var v=it.dataset.score;
+      if(v!==''&&v!==undefined){total+=parseInt(v,10);answered++;
+        if(parseInt(v,10)<2){var st=it.dataset.stage; if(st in def)def[st]+=(2-parseInt(v,10));}}
+    });
+    document.getElementById('scTotal').textContent=total;
+    var vd=document.getElementById('scVerdict');
+    if(answered<9){vd.textContent='Score all nine';vd.className='sc-verdict neutral';}
+    else if(total>=14){vd.textContent='Strong call';vd.className='sc-verdict good';}
+    else if(total>=10){vd.textContent='Solid, with gaps';vd.className='sc-verdict mid';}
+    else{vd.textContent='Something broke';vd.className='sc-verdict bad';}
+    var worst=null,max=0;
+    for(var k in def){if(def[k]>max){max=def[k];worst=k;}}
+    document.querySelectorAll('[data-diag]').forEach(function(d){
+      d.classList.toggle('flag',answered===9&&max>0&&d.dataset.diag===worst);
+    });
+  }
+  scItems.forEach(function(it){
+    it.querySelectorAll('.sc-btn').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        it.dataset.score=btn.dataset.val;
+        it.querySelectorAll('.sc-btn').forEach(function(b){b.classList.toggle('on',b===btn);});
+        recompute();
+      });
+    });
+  });
+  var rb=document.getElementById('scReset');
+  if(rb)rb.addEventListener('click',function(){
+    scItems.forEach(function(it){it.dataset.score='';it.querySelectorAll('.sc-btn').forEach(function(b){b.classList.remove('on');});});
+    document.querySelectorAll('[data-diag]').forEach(function(d){d.classList.remove('flag');});
+    recompute();
+  });
+  recompute();
+</script>
 </body>
 </html>
