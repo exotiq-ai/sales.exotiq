@@ -1,10 +1,10 @@
 # Exotiq Sales Hub
 
-A small, **private**, unindexed static site hosted on Netlify. It hosts three things:
+A small, **private**, unindexed static site hosted on Netlify. It hosts:
 
-- **Sales Playbook** — `playbook.html`
-- **Call Cockpit** — `cockpit.html`
-- An outbound link to the **live sales dashboard** (set in `index.html`)
+- **Sales Playbook** — the home page, served at `/` (`index.html`)
+- **Call Cockpit** — `/cockpit.html`
+- An outbound link to the **live sales dashboard** (cross-tool nav in both pages)
 
 The whole site sits behind a **single shared password**, enforced server-side by a
 Netlify Edge Function. Unauthenticated visitors never receive site content.
@@ -12,17 +12,17 @@ Netlify Edge Function. Unauthenticated visitors never receive site content.
 ## Structure
 
 ```
-/index.html                       the hub / front door
-/playbook.html                    the sales playbook
-/cockpit.html                     the call cockpit
+/index.html                       the Sales Playbook (home, served at /)
+/cockpit.html                     the Call Cockpit
 /robots.txt                       Disallow: /  (crawlers can read this; it is not gated)
 /netlify.toml                     publish = "."; edge function on /*; security headers
 /netlify/edge-functions/gate.ts   the shared-password gate
 ```
 
-> The three HTML files shipped initially are **placeholders** so the gate could be
-> deployed and verified end-to-end. Replace them with the finished files; do not
-> change their content or styling beyond ensuring a `noindex` meta is present.
+> The Playbook is canonical and lives at `/`. Cross-tool nav in both pages assumes
+> the Playbook at `/` and the Cockpit at `/cockpit.html`; if you move either, update
+> those hrefs in both files. The old standalone hub and the pre-brand-book playbook
+> have been retired.
 
 ## How the gate works
 
@@ -37,8 +37,7 @@ Netlify Edge Function. Unauthenticated visitors never receive site content.
   is verified server-side and **rotating `SITE_PASSWORD` invalidates all sessions**.
 - **Fails closed:** if `SITE_PASSWORD` is unset, every path is blocked with a
   "Site not configured" page.
-- **Sign out:** visit **`/logout`** to clear the cookie. (The hub placeholder links
-  to it; the finished hub can too if desired.)
+- **Sign out:** visit **`/logout`** to clear the cookie.
 
 ## Indexing is blocked in three layers
 
@@ -88,9 +87,9 @@ if you only use native Git deploy.)
 1. **Custom domain** — add `sales.exotiq.ai` in Domain management.
 2. **DNS** — at the DNS provider for `exotiq.ai`, add a `CNAME`: host `sales` →
    the Netlify site target. Netlify provisions HTTPS automatically once DNS resolves.
-3. **Dashboard URL** — already set in `index.html` to
-   `https://leadsbysaul.netlify.app/dashboard` (the `data-dashboard-link` card).
-   Update it there if the dashboard URL changes.
+3. **Dashboard URL** — set to `https://leadsbysaul.netlify.app/dashboard` in the
+   cross-tool nav of both `index.html` and `cockpit.html`. Update it in both if the
+   dashboard URL changes.
 
 ## Note on access model
 
